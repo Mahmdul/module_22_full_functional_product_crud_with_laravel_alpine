@@ -1,0 +1,349 @@
+### Overview ###
+1) we have to setup laravel 11 starter than select blade with alpine option and obviously xammp should be opened before
+2) Testing framework should be pest
+3) Connect with mysql database 
+4) After php artisan make:view alpine.demo we will get demo.blade.php in resource folder there we will write after title
+tag @vite(['resources/js/app.js'])
+5) for css we will use https://matcha.mizu.sh/ and copy this: <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+6) Zehetu amra project er start a Breze scaffolding er time ei blade with alpine use korsi tai amader Alpine use korte
+ar CDN use korar dorkar nai
+7) regular js a zevabe amra likhi:
+const data = {
+	message: 'Hello from Ostad Batch 4',
+	date: 'Nov 20, 2024'
+	     }
+Alpine a seta likhe:
+
+<div x-data = "{message: 'Hello from Ostad Batch 4',date: 'Nov 20, 2024'}">
+</div>
+8) Or we can use alpine like this:
+    <div x-data="data">
+        <p x-text="message"></p>
+        <p x-text="date"></p>
+    </div>
+
+    <script>
+        const data = {
+	        message: 'Hello from Ostad Batch 4',
+	        date: 'Nov 20, 2024'
+	     }
+    </script>
+9)   	  
+	<div x-data="data">
+        <p x-text="message"></p>
+        <p x-text="date"></p>
+        <p x-text="date"></p>
+        <p x-text="date"></p>
+        <button @click="date='26th Nov, 2024'" class="click">Click Me</button>
+    	</div>
+
+    <script>
+        const data = {
+	        message: 'Hello from Ostad Batch 4',
+	        date: 'Nov 20, 2024'
+	     }
+    </script>
+10) In exchange of simple Alpine.js code we can easily and dynamically can get reactivity from our site we are building
+11) we are creating another view php artisan make:view alpine.demo2
+12)     <div x-data="data">
+
+        <button @click="date='26th Nov, 2024'" class="click">Hide</button>
+        <button @click="date='26th Nov, 2024'" class="click">Show</button>
+
+        <div x-show = "open" style="height:200px;width:500px;background-color: blanchedalmond;padding:10px;color:black">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto totam omnis recusandae ad, tempora mollitia iure magnam! Non, est unde.
+
+        </div>
+    	</div>
+
+    <script>
+        const data = {
+            open:true,
+	     }
+    </script>
+means data obj er vitor open true holei kebol Lorem code gula dekha zabe, jodi true na hoi lorem text dekha zabe na
+13)Full Alpine code for toggling:
+   <div x-data="data">
+
+        <button @click="open=false"  class="click">Hide</button>
+        <button @click="open=true" class="click">Show</button>
+
+        <div x-show = "open" style="height:200px;width:500px;background-color: blanchedalmond;padding:10px;color:black">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto totam omnis recusandae ad, tempora mollitia iure magnam! Non, est unde.
+
+        </div>
+    </div>
+
+    <script>
+        const data = {
+            open:false,
+	     		}
+    </script>
+14) Final code for toggling:
+  <div x-data="data">
+
+        <button @click="open=false"  class="click">Hide</button>
+        <button @click="open=true" class="click">Show</button>
+        <button @click="open=!open" class="click">Toggle</button>
+
+        <div x-show = "open" x-transition style="height:200px;width:500px;background-color: blanchedalmond;padding:10px;color:black">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto totam omnis recusandae ad, tempora mollitia iure magnam! Non, est unde.
+
+        </div>
+    </div>
+
+    <script>
+        const data = {
+            open:false,
+	     }
+    </script>
+15) Now for two may data binding with x-model in Alpine we will create another blade file 
+php artisan make:view alpine.demo3
+example of two mabinding in blade file:
+   <div x-data="person">
+        <p x-text="name"></p>
+        <p x-text="age"></p>
+        <p x-text="email"></p>
+        <hr>
+        <input type="text" x-model="name">
+        <input type="text" x-model="age">
+        <input type="text" x-model="email">
+    </div>
+
+    <script>
+        const person = {
+            name: 'Jhon Doe',
+            age: 30,
+            email: 'jhon@exam.com'
+        }
+    </script>
+16) Another example of two way data binding:
+ <div x-data="person">
+        <p x-text="name"></p>
+        <p x-text="age"></p>
+        <p x-text="email"></p>
+        <button @click="age=57" class="click">Update</button>
+        <hr>
+        <input type="text" x-model="name">
+        <input type="text" x-model="age">
+        <input type="text" x-model="email">
+    </div>
+
+    <script>
+        const person = {
+            name: 'Jhon Doe',
+            age: 30,
+            email: 'jhon@exam.com'
+        }
+    </script>
+17) Create another blade file by demo4 for showing loop in Alpine.js
+   <div x-data="data">
+        <ul>
+            <template x-for="person, index in persons" :key="index">
+                <li x-text="`${index} - ${person.name}`"></li>
+            </template>
+        </ul>
+    </div>
+
+    <script>
+        const data = {
+            persons:[
+                {name:'Jhon Doe',age:27,email:'jhon@emailcom'},
+                {name:'Jane Doe',age:25,email:'jane@emailcom'},
+                {name:'Jim Doe',age:45,email:'jim@emailcom'}
+            ]
+        }
+    </script>
+18)     <div x-data="data">
+        <ul>
+            <template x-for="person, index in persons" :key="index">
+                {{-- <li x-text="`${index} - ${person.name}`"></li> --}}
+                <li>
+                    <input type="text" x-model="person.name">
+                </li>
+            </template>
+        </ul>
+        <button @click="console.log(persons)" class="click">Click Me</button>
+    </div>
+
+    <script>
+        const data = {
+            persons:[
+                {name:'Jhon Doe',age:27,email:'jhon@emailcom'},
+                {name:'Jane Doe',age:25,email:'jane@emailcom'},
+                {name:'Jim Doe',age:45,email:'jim@emailcom'}
+            ]
+        }
+    
+</script>
+### Data entry with fake data ### 
+19) Now we will create model with migration 
+	php artisan make:model Product -m
+In migration file:
+Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->decimal('price', 8, 2);
+            $table->timestamps();
+        });
+In Product model:
+class Product extends Model
+{
+    protected $fillable = ['name', 'description', 'price'];
+}
+20) Now we will create data. At first we will create factory to create dummy data. Now to entry the dummy data within db
+we will use seeder
+	php artisan make:factory ProductFactory
+In ProductFactory:
+    public function definition(): array
+    {
+        return [
+            'name'=>$this->faker->word(),
+            'description'=>$this->faker->sentence(),
+            'price'=>$this->faker->randomFloat(2, 1, 1000),
+        ];
+    }
+21) Then we will make seeder kenona amra ager para te create kora factory ta use korbo
+	php artisan make:seeder ProductSeeder
+ProductSeeder file a obossoi at first Product model k import korte hobe
+	use App\Models\Product;
+Kono model a jodi amra factory use koraite chai tahole Prdouct modal a giye:
+	use Illuminate\Database\Eloquent\Factories\HasFactory;
+22) In Product model:
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Product extends Model
+{   
+    use HasFactory;
+    protected $fillable = ['name', 'description', 'price'];
+}
+23) Now we can use ProductFactory
+	Now go to ProductSeeder:
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\Product;
+
+class ProductSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        Product::factory()->count(10)->create();
+    }
+} 
+ei code ta deyar fole ProductFactory te run() a thaka code k 10 bar run korabe and then db te entry dibe automatic;
+ekhon in DatabaseSeeder:
+	namespace Database\Seeders;
+
+use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Database\Seeders\ProductSeeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        // User::factory(10)->create();
+
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+        $this->call(
+            ProductSeeder::class,
+        );
+    }
+}
+ekhane ProductSeeder ProductFactory k 10 bar call korse
+Then:
+	php artisan db:seed
+24) db te entry hoar por eba ramr Alpine a loop chalabo
+Create a view:
+	php artisan make:view alpine.products
+Create a Product controller:
+	php artisan make:controller ProductController
+In ProductController:
+	use Illuminate\Http\Request;
+use App\Models\Product;
+
+class ProductController extends Controller
+{
+    //This an API endpoint
+    function index(Request $request){
+        $products= Product::all();
+        return $products;
+    }
+}
+In web.php:
+	Route::get('/products', [ProductController::class, 'index']);
+erpor ei URL a hit korlei data browser a show korbe like API endpoint:
+	http://127.0.0.1:8000/products
+Ekhon jodi amra created_at updated_at hide korte chai:
+	Go to Product model:
+		protected $hidden = ['created_at', 'updated_at'];
+24) Ebar ei data gulo k jodi amra Alpine er vitor table banai dekhate chai
+	tahole amder ProductController a:
+		
+use Illuminate\Http\Request;
+use App\Models\Product;
+
+class ProductController extends Controller
+{
+    //This an API endpoint
+    function index(Request $request){
+        $products= Product::all();
+        return view('alpine.products', ['products'=>$products]);
+    }
+}
+In product.blade.php:
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Alpine Products</title>
+    @vite(['resources/js/app.js'])
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+</head>
+<body>
+    <h1>Products</h1>
+    <div x-data="data">
+        <ul>
+            <template x-for="product,index in products" :key="index">
+                <li x-text="`${index+1} - ${product.name}`"></li>
+            </template>
+        </ul>
+    </div>
+     
+    <script>
+        // js a zkono pass kora data k josn a convert korte hoi:
+        // const products = @json($products);
+        // console.log(products);
+
+        //In Alpine
+        const data = {
+            //ekhane products er por : dite hoise knona products ekta object tai
+            products: @json($products)
+        }
+    </script>
+</body>
+</html>
+25) Now for creating table
+	Create another balde file
+		php artisan make:view alpine.products2
+26) Now we copy markup from https://github.com/LearnWithHasinHayder/b5-alpine-crud/blob/master/resources/views/alpine/products.blade.php
+repository then in terminal write:
+	npm run build 
